@@ -1,12 +1,13 @@
-import {ThemeType} from 'react-native-magnus';
+import { ThemeType } from 'react-native-magnus';
 import fonts from './fonts';
 type themesNames = 'light' | 'dark';
 type MyThemeType = {
   [name in themesNames]: ThemeType;
 };
 
-const colors = {
+export const colors = {
   blue900: '#2E4C6D',
+  defaultPurple: '#9923F7',
 };
 
 export const themes: MyThemeType = {
@@ -28,7 +29,7 @@ export const themes: MyThemeType = {
     colors,
     components: {
       Div: {
-        bg: 'black',
+        bg: '#35383F',
       },
       Text: {
         fontFamily: fonts.roboto.regular,
