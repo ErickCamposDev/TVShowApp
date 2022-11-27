@@ -3,9 +3,8 @@ import {Div, DropdownRef, Text} from 'react-native-magnus';
 import {useTranslation} from 'react-i18next';
 import {useAppDispatch, useAppSelector} from '~/redux/AppStore';
 import {getSampleThunk} from '~/redux/actions/SampleActions';
-import {SerieCard} from '~/components/atoms/SerieCard';
 
-export const Home: FC = ({ }) => {
+export const Favorites: FC = ({ }) => {
   const dropdownRef = createRef<DropdownRef>();
 
   //Get state from store
@@ -19,11 +18,8 @@ export const Home: FC = ({ }) => {
   }, []);
 
   return (
-    <Div px={20} flex={1}>
-      <SerieCard
-        name='La casa de papel La casa de papelLa casa de papel e papel La casa de papelLa casa de pape'
-        onPress={() => { }}
-      />
+    <Div flex={1}>
+      <Text>Favorites</Text>
     </Div>
   );
 };

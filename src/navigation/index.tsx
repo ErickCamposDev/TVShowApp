@@ -1,19 +1,20 @@
-import React, { useContext, useEffect } from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer } from '@react-navigation/native';
-import { isReadyRef, navigationRef } from 'react-navigation-helpers';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import React, {useContext, useEffect} from 'react';
+import {createStackNavigator} from '@react-navigation/stack';
+import {NavigationContainer} from '@react-navigation/native';
+import {isReadyRef, navigationRef} from 'react-navigation-helpers';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 // Pages
-import { Home } from '../pages';
-import { Icon, ThemeContext } from 'react-native-magnus';
-import { StatusBar } from 'react-native';
-import { RootStackParamList, SCREENS } from '../interfaces';
+import {Home, SerieDetails, Settings} from '../pages';
+import {Icon, ThemeContext} from 'react-native-magnus';
+import {StatusBar} from 'react-native';
+import {RootStackParamList, SCREENS} from '../interfaces';
+import {Favorites} from '~/pages/Favorites';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator<RootStackParamList>();
 
 const Navigation = () => {
-  const { theme } = useContext(ThemeContext);
+  const {theme} = useContext(ThemeContext);
 
   const isDarkMode = theme.name === 'dark';
 
@@ -29,6 +30,9 @@ const Navigation = () => {
     let iconName = 'home';
     let routes: any = {
       [SCREENS.HOME]: 'home',
+      [SCREENS.FAVORITES]: 'star',
+      [SCREENS.SETTINGS]: 'settings'
+
     };
 
     return (
@@ -41,13 +45,24 @@ const Navigation = () => {
     );
   };
 
+  const SeriesStack = () => {
+    return (
+      <Stack.Navigator
+        screenOptions={{headerShown: false}}
+      >
+        <Stack.Screen name={SCREENS.HOME} component={Home} />
+        <Stack.Screen name={SCREENS.SERIE_DETAILS} component={SerieDetails} />
+      </Stack.Navigator>
+    )
+  }
+
   const HomeTabNavigation = () => {
     return (
       <Tab.Navigator
-        screenOptions={({ route }) => ({
+        screenOptions={({route}) => ({
           headerShown: false,
           unmountOnBlur: true,
-          tabBarIcon: ({ color, size }) => renderTabIcon(route, color, size),
+          tabBarIcon: ({color, size}) => renderTabIcon(route, color, size),
           tabBarActiveTintColor: '#ed8936',
           tabBarInactiveTintColor: '#a0aec0',
           tabBarStyle: {
@@ -57,7 +72,9 @@ const Navigation = () => {
             return null;
           },
         })}>
-        <Tab.Screen name={SCREENS.HOME} component={Home} />
+        <Tab.Screen name={SCREENS.SERIES_STACK} component={SeriesStack} />
+        <Tab.Screen name={SCREENS.FAVORITES} component={Favorites} />
+        <Tab.Screen name={SCREENS.SETTINGS} component={Settings} />
       </Tab.Navigator>
     );
   };
@@ -68,7 +85,7 @@ const Navigation = () => {
       onReady={() => {
         isReadyRef.current = true;
       }}>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Navigator screenOptions={{headerShown: false}}>
         <Stack.Screen name={SCREENS.HOME_TAB} component={HomeTabNavigation} />
       </Stack.Navigator>
     </NavigationContainer>
