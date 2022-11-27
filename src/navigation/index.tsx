@@ -1,20 +1,20 @@
-import React, {useContext, useEffect} from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
-import {NavigationContainer} from '@react-navigation/native';
-import {isReadyRef, navigationRef} from 'react-navigation-helpers';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import React, { useContext, useEffect } from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { isReadyRef, navigationRef } from 'react-navigation-helpers';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 // Pages
-import {Home, SerieDetails, Settings} from '../pages';
-import {Icon, ThemeContext} from 'react-native-magnus';
-import {StatusBar} from 'react-native';
-import {RootStackParamList, SCREENS} from '../interfaces';
-import {Favorites} from '~/pages/Favorites';
+import { Home, SerieDetails, Settings } from '../pages';
+import { Icon, ThemeContext } from 'react-native-magnus';
+import { StatusBar } from 'react-native';
+import { RootStackParamList, SCREENS } from '../interfaces';
+import { Favorites } from '~/pages/Favorites';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator<RootStackParamList>();
 
 const Navigation = () => {
-  const {theme} = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext);
 
   const isDarkMode = theme.name === 'dark';
 
@@ -31,8 +31,7 @@ const Navigation = () => {
     let routes: any = {
       [SCREENS.HOME]: 'home',
       [SCREENS.FAVORITES]: 'star',
-      [SCREENS.SETTINGS]: 'settings'
-
+      [SCREENS.SETTINGS]: 'settings',
     };
 
     return (
@@ -47,23 +46,21 @@ const Navigation = () => {
 
   const SeriesStack = () => {
     return (
-      <Stack.Navigator
-        screenOptions={{headerShown: false}}
-      >
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name={SCREENS.HOME} component={Home} />
         <Stack.Screen name={SCREENS.SERIE_DETAILS} component={SerieDetails} />
       </Stack.Navigator>
-    )
-  }
+    );
+  };
 
   const HomeTabNavigation = () => {
     return (
       <Tab.Navigator
-        screenOptions={({route}) => ({
+        screenOptions={({ route }) => ({
           headerShown: false,
           unmountOnBlur: true,
-          tabBarIcon: ({color, size}) => renderTabIcon(route, color, size),
-          tabBarActiveTintColor: '#ed8936',
+          tabBarIcon: ({ color, size }) => renderTabIcon(route, color, size),
+          tabBarActiveTintColor: 'red',
           tabBarInactiveTintColor: '#a0aec0',
           tabBarStyle: {
             backgroundColor: isDarkMode ? '#1a202c' : '#f7fafc',
@@ -85,7 +82,7 @@ const Navigation = () => {
       onReady={() => {
         isReadyRef.current = true;
       }}>
-      <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name={SCREENS.HOME_TAB} component={HomeTabNavigation} />
       </Stack.Navigator>
     </NavigationContainer>
