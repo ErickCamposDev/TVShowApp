@@ -1,22 +1,7 @@
-import React, {createRef, FC, useEffect} from 'react';
-import {Div, DropdownRef, Text} from 'react-native-magnus';
-import {useTranslation} from 'react-i18next';
-import {useAppDispatch, useAppSelector} from '~/redux/AppStore';
-import {getSampleThunk} from '~/redux/actions/SampleActions';
+import React, { FC } from 'react';
+import { Div, Text } from 'react-native-magnus';
 
-export const SerieDetails: FC = ({ }) => {
-  const dropdownRef = createRef<DropdownRef>();
-
-  //Get state from store
-  const {sample1} = useAppSelector(state => state.sample);
-  //Get dispatcher, to dispatch thunk functions Creators
-  const dispatcher = useAppDispatch();
-  const {t} = useTranslation();
-
-  useEffect(() => {
-    dispatcher(getSampleThunk());
-  }, []);
-
+export const SerieDetails: FC = ({}) => {
   return (
     <Div flex={1}>
       <Text>Serie Details</Text>

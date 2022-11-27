@@ -13,6 +13,7 @@ export enum TranslationKeyEnum {
   MoviesSectionTitle = 'movies-section-title',
   Error = 'error',
   ErrorUnexpected = 'error-unexpected',
+  SearchPlaceholder = 'search-placeholder',
 }
 
 export type TranslationKey = { [K in TranslationKeyEnum]: string };

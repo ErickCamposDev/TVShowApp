@@ -1,25 +1,18 @@
 import React from 'react';
-import { Input } from 'react-native-magnus';
+import { Input, InputProps } from 'react-native-magnus';
 import fonts from '~/shared/theme/fonts';
 
-interface SerieCardProps {
-  value: string;
-  placeholder: string;
-  onChangeText: () => void;
-}
+interface SerieCardProps extends InputProps {}
 
-export const SerieCard = ({
-  placeholder,
-  value,
-  onChangeText,
-}: SerieCardProps) => {
+export const SearchBar = ({ ...props }: SerieCardProps) => {
   return (
     <Input
-      placeholder={placeholder}
-      value={value}
-      onChangeText={onChangeText}
+      borderWidth={2}
+      rounded={12}
+      focusBorderColor="red"
       color={'#FFF'}
       fontFamily={fonts.roboto.bold}
+      {...props}
     />
   );
 };

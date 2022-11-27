@@ -41,7 +41,7 @@ export const SerieCard: FC<SerieCardProps> = ({
           />
           {rating && (
             <Div
-              bg={'red'}
+              bg="red"
               left={8}
               top={8}
               w={45}

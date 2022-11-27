@@ -16,6 +16,7 @@ const translations: TranslationKey = {
   [TranslationKeyEnum.MoviesSectionTitle]: 'Título do filme',
   [TranslationKeyEnum.Error]: 'Erro',
   [TranslationKeyEnum.ErrorUnexpected]: 'Um erro inesperado aconteceu',
+  [TranslationKeyEnum.SearchPlaceholder]: 'Pesquisar',
 };
 
 export default { translation: translations };
