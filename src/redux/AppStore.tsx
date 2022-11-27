@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch, useSelector } from 'react-redux';
 import { createLogger } from 'redux-logger';
-import { sampleReducer } from './reducers/SampleReducer';
+import { tvShowReducer } from './reducers/TVShowReducer';
 
 const logger = createLogger({
   level: {
@@ -19,7 +19,7 @@ const logger = createLogger({
 
 export const store = configureStore({
   reducer: {
-    sample: sampleReducer,
+    tvShow: tvShowReducer,
   },
   middleware: defaultMiddleware =>
     defaultMiddleware({ serializableCheck: false }).concat(logger),
