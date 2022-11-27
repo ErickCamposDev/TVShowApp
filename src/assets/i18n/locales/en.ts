@@ -13,6 +13,8 @@ const translations: TranslationKey = {
   [TranslationKeyEnum.English]: 'English',
   [TranslationKeyEnum.Portuguese]: 'Portuguese',
   [TranslationKeyEnum.MoviesSectionTitle]: 'Movie Title',
+  [TranslationKeyEnum.Error]: 'Error',
+  [TranslationKeyEnum.ErrorUnexpected]: 'An unexpected error has occurred',
 };
 
 export default { translation: translations };

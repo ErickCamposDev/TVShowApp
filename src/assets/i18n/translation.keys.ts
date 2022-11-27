@@ -11,6 +11,8 @@ export enum TranslationKeyEnum {
   English = 'english',
   Portuguese = 'portuguese',
   MoviesSectionTitle = 'movies-section-title',
+  Error = 'error',
+  ErrorUnexpected = 'error-unexpected',
 }
 
 export type TranslationKey = { [K in TranslationKeyEnum]: string };
