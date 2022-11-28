@@ -13,6 +13,7 @@ import { Icon, ThemeContext } from 'react-native-magnus';
 import { StatusBar } from 'react-native';
 import { RootStackParamList, SCREENS } from '../interfaces';
 import { Favorites } from '~/pages/Favorites';
+import { Welcome } from '~/pages/Welcome';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator<RootStackParamList>();
@@ -96,6 +97,7 @@ const Navigation = () => {
         isReadyRef.current = true;
       }}>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name={SCREENS.WELCOME} component={Welcome} />
         <Stack.Screen name={SCREENS.HOME_TAB} component={HomeTabNavigation} />
       </Stack.Navigator>
     </NavigationContainer>

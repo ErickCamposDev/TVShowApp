@@ -1,2 +1,2 @@
 // your images here
-export {};
+export { default as WelcomeBackground } from './welcomeBackground.png';

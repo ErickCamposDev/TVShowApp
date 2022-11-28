@@ -7,6 +7,7 @@ export const enum SCREENS {
   SERIE_DETAILS = 'SerieDetails',
   SETTINGS = 'Settings',
   SERIES_STACK = 'SeriesStack',
+  WELCOME = 'Welcome',
 }
 
 export type RootStackParamList = {
@@ -16,4 +17,5 @@ export type RootStackParamList = {
   [SCREENS.HOME]: undefined;
   [SCREENS.SETTINGS]: undefined;
   [SCREENS.SERIES_STACK]: undefined;
+  [SCREENS.WELCOME]: undefined;
 };

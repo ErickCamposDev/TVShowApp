@@ -17,6 +17,7 @@ export enum TranslationKeyEnum {
   SearchPlaceholder = 'search-placeholder',
   Episodes = 'episodes',
   Favorites = 'Favorites',
+  Welcome = 'Welcome',
 }
 
 export type TranslationKey = { [K in TranslationKeyEnum]: string };

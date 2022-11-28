@@ -19,6 +19,7 @@ const translations: TranslationKey = {
   [TranslationKeyEnum.Episodes]: 'Episodes',
   [TranslationKeyEnum.Settings]: 'Settings',
   [TranslationKeyEnum.Favorites]: 'Favorites',
+  [TranslationKeyEnum.Welcome]: 'Welcome to the TV Show App',
 };
 
 export default { translation: translations };
