@@ -9,7 +9,6 @@ const initialState: TVSerieState = {
 
 export const tvSerieReducer = createReducer(initialState, builder => {
   builder.addCase(setSeriesAction, (state, action) => {
-    console.log('series', action.payload.seriesResponse);
     state.series = action.payload.seriesResponse.map(
       serieResponse => serieResponse.show,
     );

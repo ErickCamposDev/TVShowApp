@@ -21,7 +21,7 @@ export const I18nDropdown: FC<II18nDropdownProps> = ({ dropdownRef }) => {
           name="globe-outline"
           mr="lg"
           fontFamily="Ionicons"
-          color="orange700"
+          color="red"
           fontSize="3xl"
         />
       }

@@ -1,7 +1,7 @@
 /* eslint-disable no-sparse-arrays */
 /* eslint-disable react-native/no-inline-styles */
 import { t } from 'i18next';
-import React, { FC, useContext, useRef } from 'react';
+import React, { FC, useContext, useRef, useState } from 'react';
 import { Animated, ScrollView } from 'react-native';
 import { Div, Icon, Tag, Text, ThemeContext } from 'react-native-magnus';
 import { TranslationsKeys } from '~/assets/i18n';
@@ -20,11 +20,17 @@ interface SerieDetailsCardProps {
 export const SerieDetailsCard: FC<SerieDetailsCardProps> = ({ serie }) => {
   const offset = useRef(new Animated.Value(0)).current;
   const { theme } = useContext(ThemeContext);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const renderContent = () => {
     return (
       <Div mt={12} flex={1}>
-        <EpisodeModal visible />
+        <EpisodeModal
+          onClosePress={() => {
+            setModalVisible(false);
+          }}
+          visible={modalVisible}
+        />
         <Div m={20}>
           <Text fontSize={24} mb={20} fontFamily={fonts.urbanist.bold}>
             {serie.name}
@@ -60,9 +66,7 @@ export const SerieDetailsCard: FC<SerieDetailsCardProps> = ({ serie }) => {
           <Text fontSize={24} mb={20} fontFamily={fonts.urbanist.bold}>{`${t(
             TranslationsKeys.Episodes,
           )}`}</Text>
-          <CustomCollapse />
-          <CustomCollapse />
-          <CustomCollapse />
+          <CustomCollapse onEpisodePress={() => setModalVisible(true)} />
         </Div>
       </Div>
     );

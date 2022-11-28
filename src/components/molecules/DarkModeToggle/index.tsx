@@ -30,8 +30,8 @@ export const DarkModeToggle: FC = ({}) => {
           on={isDarkMode}
           onPress={onToggle}
           bg="gray100"
-          circleBg="orange600"
-          activeBg="orange700"
+          circleBg="red"
+          activeBg="red"
           h={30}
           w={60}
         />

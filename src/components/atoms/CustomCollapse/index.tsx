@@ -3,8 +3,12 @@ import { TouchableOpacity } from 'react-native';
 import { Collapse, Text } from 'react-native-magnus';
 import fonts from '~/shared/theme/fonts';
 
+interface CustomModalProps {
+  onEpisodePress: () => void;
+}
+
 const EPISODE_HEIGHT = 40;
-export const CustomCollapse: FC = () => {
+export const CustomCollapse: FC<CustomModalProps> = ({ onEpisodePress }) => {
   const episodes = [
     'Lorem ipsum dolor sit amet',
     'Lorem ipsum dolor sit ',
@@ -18,7 +22,7 @@ export const CustomCollapse: FC = () => {
     'Lorem ipsum dolor sit ',
   ];
   const EpisodeItem = ({ item, number }: { item: string; number: number }) => (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={onEpisodePress}>
       <Text h={EPISODE_HEIGHT}>
         {number} - {item}
       </Text>

@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { Dimensions, TouchableOpacity } from 'react-native';
 import { Div, Image, Text } from 'react-native-magnus';
+import { PLACEHOlDER_POSTER } from '~/shared/constants/images';
 import fonts from '~/shared/theme/fonts';
 
 interface SerieCardProps {
@@ -10,9 +11,6 @@ interface SerieCardProps {
   disbled?: boolean;
   rating?: number;
 }
-
-const PLACEHOlDER_POSTER =
-  'https://betravingknows.com/wp-content/uploads/2017/06/video-movie-placeholder-image-grey.png';
 
 const imageWidth = Dimensions.get('screen').width * 0.4;
 

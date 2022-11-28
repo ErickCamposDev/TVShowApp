@@ -1,6 +1,7 @@
 import React from 'react';
 import { Animated } from 'react-native';
 import { Image } from 'react-native-magnus';
+import { PLACEHOlDER_POSTER } from '~/shared/constants/images';
 
 interface SerieImageProps {
   source?: string;
@@ -8,9 +9,6 @@ interface SerieImageProps {
 }
 
 export const SerieImage = ({ source, height }: SerieImageProps) => {
-  const PLACEHOlDER_POSTER =
-    'https://betravingknows.com/wp-content/uploads/2017/06/video-movie-placeholder-image-grey.png';
-
   return (
     <Animated.View style={{ height }}>
       <Image
