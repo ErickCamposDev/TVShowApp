@@ -1,10 +1,10 @@
-import { Show } from '~/services/TVMazeApi/types/Search';
+import { Serie } from '~/services/TVMazeApi/types/Serie';
 
 export interface ActionMap<T> {
   id: number;
   value: T;
 }
 
-export interface TVShowState {
-  shows: Show[];
+export interface TVSerieState {
+  series: Serie[];
 }

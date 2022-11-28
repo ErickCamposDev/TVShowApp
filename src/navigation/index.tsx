@@ -1,6 +1,10 @@
 import React, { useContext, useEffect } from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer } from '@react-navigation/native';
+import {
+  CardStyleInterpolators,
+  createStackNavigator,
+  StackNavigationProp,
+} from '@react-navigation/stack';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { isReadyRef, navigationRef } from 'react-navigation-helpers';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 // Pages
@@ -12,6 +16,9 @@ import { Favorites } from '~/pages/Favorites';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator<RootStackParamList>();
+
+export const useAppNavigation: () => StackNavigationProp<RootStackParamList> =
+  useNavigation;
 
 const Navigation = () => {
   const { theme } = useContext(ThemeContext);
@@ -48,7 +55,13 @@ const Navigation = () => {
     return (
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name={SCREENS.HOME} component={Home} />
-        <Stack.Screen name={SCREENS.SERIE_DETAILS} component={SerieDetails} />
+        <Stack.Screen
+          name={SCREENS.SERIE_DETAILS}
+          options={{
+            cardStyleInterpolator: CardStyleInterpolators.forFadeFromCenter,
+          }}
+          component={SerieDetails}
+        />
       </Stack.Navigator>
     );
   };

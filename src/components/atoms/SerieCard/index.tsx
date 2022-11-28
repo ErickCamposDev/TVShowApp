@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Dimensions, TouchableOpacity } from 'react-native';
 import { Div, Image, Text } from 'react-native-magnus';
 import fonts from '~/shared/theme/fonts';
 
@@ -14,6 +14,8 @@ interface SerieCardProps {
 const PLACEHOlDER_POSTER =
   'https://betravingknows.com/wp-content/uploads/2017/06/video-movie-placeholder-image-grey.png';
 
+const imageWidth = Dimensions.get('screen').width * 0.4;
+
 export const SerieCard: FC<SerieCardProps> = ({
   image,
   rating,
@@ -23,45 +25,43 @@ export const SerieCard: FC<SerieCardProps> = ({
 }) => {
   return (
     <TouchableOpacity disabled={disbled || !onPress} onPress={onPress}>
-      <Div flexDir="row">
-        <Div
-          h={120}
-          pr={20}
-          flex={1}
-          alignItems="flex-start"
-          position="relative">
-          <Image
-            position="absolute"
-            h={'100%'}
-            w={'100%'}
-            rounded={12}
-            source={{
-              uri: image || PLACEHOlDER_POSTER,
-            }}
-          />
-          {rating && (
-            <Div
-              bg="red"
-              left={8}
-              top={8}
-              w={45}
-              h={30}
-              justifyContent="center"
-              rounded={10}
-              alignItems="center">
-              <Text
-                color="gray100"
-                fontSize={14}
-                fontFamily={fonts.urbanist.bold}>
-                {rating.toFixed(1)}
-              </Text>
-            </Div>
-          )}
+      <Div my={12} mx={10}>
+        <Div>
+          <Div position="relative">
+            <Image
+              resizeMode="cover"
+              h={200}
+              w={imageWidth}
+              rounded={12}
+              source={{
+                uri: image || PLACEHOlDER_POSTER,
+              }}
+            />
+            {rating && (
+              <Div
+                bg="red"
+                position="absolute"
+                left={8}
+                top={8}
+                w={45}
+                h={30}
+                justifyContent="center"
+                rounded={10}
+                alignItems="center">
+                <Text
+                  color="gray100"
+                  fontSize={14}
+                  fontFamily={fonts.urbanist.bold}>
+                  {rating.toFixed(1)}
+                </Text>
+              </Div>
+            )}
+          </Div>
         </Div>
         <Text
+          maxW={imageWidth}
           flex={1}
           fontFamily={fonts.urbanist.bold}
-          numberOfLines={3}
           fontSize={20}>
           {name}
         </Text>

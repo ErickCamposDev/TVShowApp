@@ -8,6 +8,7 @@ type MyThemeType = {
 export const colors = {
   blue900: '#2E4C6D',
   defaultPurple: '#9923F7',
+  strongGray: '#1a202c',
 };
 
 export const themes: MyThemeType = {
@@ -22,6 +23,15 @@ export const themes: MyThemeType = {
         fontFamily: fonts.roboto.regular,
         color: 'gray900',
       },
+      Input: {
+        bg: 'white',
+      },
+      Tag: {
+        color: 'red',
+      },
+      CollapseHeader: {
+        color: 'gray900',
+      },
     },
   },
   dark: {
@@ -33,6 +43,15 @@ export const themes: MyThemeType = {
       },
       Text: {
         fontFamily: fonts.roboto.regular,
+        color: 'gray100',
+      },
+      Tag: {
+        color: 'gray100',
+      },
+      Input: {
+        bg: 'strongGray',
+      },
+      CollapseHeader: {
         color: 'gray100',
       },
     },

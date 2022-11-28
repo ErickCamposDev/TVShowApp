@@ -46,8 +46,11 @@ export interface Link {
 interface Links extends Link {
   previousepisode: Previousepisode;
 }
+interface EpisodeLinks extends Link {
+  serie: Serie;
+}
 
-export interface Show {
+export interface Serie {
   id: number;
   url: string;
   name: string;
@@ -75,7 +78,7 @@ export interface Show {
 
 export interface SearchByQueryResponse {
   score: number;
-  show: Show;
+  show: Serie;
 }
 
 export interface SearchByQueryRequest {
@@ -98,4 +101,25 @@ export interface Person {
 export interface SearchPeopleByQueryResponse {
   score: number;
   person: Person;
+}
+
+export interface Serie {
+  href: string;
+}
+
+export interface Episode {
+  id: number;
+  url: string;
+  name: string;
+  season: number;
+  number: number;
+  type: string;
+  airdate: string;
+  airtime: string;
+  airstamp: Date;
+  runtime: number;
+  rating: Rating;
+  image: Image;
+  summary: string;
+  _links: EpisodeLinks;
 }

@@ -3,7 +3,7 @@ import {
   SearchByQueryRequest,
   SearchByQueryResponse,
   SearchPeopleByQueryResponse,
-} from '../types/Search';
+} from '../types/Serie';
 
 class Search extends TVMazeApi {
   constructor() {
@@ -16,7 +16,7 @@ class Search extends TVMazeApi {
     });
   };
 
-  getShowsByName = (query: string) => {
+  getSeriesByName = (query: string) => {
     return this.search<SearchByQueryResponse>('/shows', query);
   };
 

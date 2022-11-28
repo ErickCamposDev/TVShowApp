@@ -16,6 +16,7 @@ const translations: TranslationKey = {
   [TranslationKeyEnum.Error]: 'Error',
   [TranslationKeyEnum.ErrorUnexpected]: 'An unexpected error has occurred',
   [TranslationKeyEnum.SearchPlaceholder]: 'Search',
+  [TranslationKeyEnum.Episodes]: 'Episodes',
 };
 
 export default { translation: translations };
