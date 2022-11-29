@@ -5,7 +5,7 @@ import resources from './src/assets/i18n';
 i18n.use(initReactI18next).init({
   compatibilityJSON: 'v3',
   resources,
-  lng: 'pt',
+  lng: 'en',
 
   interpolation: {
     escapeValue: false,

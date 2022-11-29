@@ -1,6 +1,7 @@
 export enum TranslationKeyEnum {
   WelcomeLogin = 'welcome',
   Home = 'home',
+  Settings = 'settings',
   AppLanguage = 'app-language',
   Select = 'select',
   WelcomeText = 'welcome-text',
@@ -11,6 +12,14 @@ export enum TranslationKeyEnum {
   English = 'english',
   Portuguese = 'portuguese',
   MoviesSectionTitle = 'movies-section-title',
+  Error = 'error',
+  ErrorUnexpected = 'error-unexpected',
+  SearchPlaceholder = 'search-placeholder',
+  Episodes = 'episodes',
+  Favorites = 'favorites',
+  NoFavorites = 'no-favorites',
+  Welcome = 'welcome',
+  Season = 'season',
 }
 
 export type TranslationKey = { [K in TranslationKeyEnum]: string };

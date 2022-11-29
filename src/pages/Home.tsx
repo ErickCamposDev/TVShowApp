@@ -1,58 +1,92 @@
-import React, { createRef, FC, useEffect } from 'react';
-import { Button, Div, DropdownRef, Text } from 'react-native-magnus';
-import fonts from '../shared/theme/fonts';
-import { Welcoming } from '../assets/svgs';
+/* eslint-disable no-spaced-func */
+import React, { useCallback, useEffect, useState } from 'react';
+import { Div } from 'react-native-magnus';
 import { useTranslation } from 'react-i18next';
-import { TranslationsKeys } from '../assets/i18n';
-import { DarkModeToggle, Header, I18nDropdown } from '../components';
 import { useAppDispatch, useAppSelector } from '~/redux/AppStore';
-import { getSampleThunk } from '~/redux/actions/SampleActions';
+import { SerieCard } from '~/components/atoms/SerieCard';
+import { Header } from '~/components';
+import { TranslationsKeys } from '~/assets/i18n';
+import { FlatList, StyleProp, ViewStyle } from 'react-native';
+import { getSeriesThunk } from '~/redux/actions/TVSerieActions';
+import { SearchBar } from '~/components/atoms/SearchBar/indext';
+import { SCREENS } from '~/interfaces';
+import { Serie } from '~/services/TVMazeApi/types/Serie';
+import { useAppNavigation } from '~/hooks';
 
-export const Home: FC = ({}) => {
-  const dropdownRef = createRef<DropdownRef>();
+const SERIE_CARD_HEIGHT = 249.7;
 
-  //Get state from store
-  const { sample1 } = useAppSelector(state => state.sample);
-  //Get dispatcher, to dispatch thunk functions Creators
-  const dispatcher = useAppDispatch();
+export const Home = () => {
   const { t } = useTranslation();
+  const { series } = useAppSelector(state => state.tvSerie);
+  const [page, setPage] = useState(0);
+  const [showSearch, setShowSearch] = useState('');
+  const dispatcher = useAppDispatch();
+  const navigation = useAppNavigation();
 
   useEffect(() => {
-    dispatcher(getSampleThunk());
-  }, []);
+    dispatcher(getSeriesThunk(showSearch, page));
+  }, [page, showSearch]);
+
+  const flatListStyle: StyleProp<ViewStyle> = {
+    alignItems: 'center',
+  };
+
+  const getItemLayout = useCallback<
+    (
+      data: Serie[] | null | undefined,
+      index: number,
+    ) => { index: number; offset: number; length: number }
+  >(
+    (_, index: number) => ({
+      index,
+      offset: SERIE_CARD_HEIGHT * index,
+      length: SERIE_CARD_HEIGHT,
+    }),
+    [],
+  );
+
+  const renderItem = useCallback<({ item }: { item: Serie }) => JSX.Element>(
+    ({ item }) => {
+      return (
+        <SerieCard
+          rating={item?.rating?.average}
+          image={item.image?.medium}
+          name={item.name}
+          onPress={() => {
+            navigation.navigate(SCREENS.SERIE_DETAILS, { serie: item });
+          }}
+        />
+      );
+    },
+    [],
+  );
 
   return (
     <Div flex={1}>
       <Header>{t(TranslationsKeys.Home)}</Header>
-      <Div px={24}>
-        <DarkModeToggle />
-        <Div
-          my={12}
-          flexDir="row"
-          alignItems="center"
-          justifyContent="space-between">
-          <Text fontSize={16}>{t(TranslationsKeys.AppLanguage)}</Text>
-          <Button bg="orange700" onPress={() => dropdownRef.current?.open()}>
-            {t(TranslationsKeys.Select)}
-          </Button>
-        </Div>
-        <I18nDropdown dropdownRef={dropdownRef} />
-        <Welcoming width={397.72474 / 1.2} height={407.127 / 1.2} />
-        <Text
-          fontFamily={fonts.roboto.italic}
-          mt={20}
-          textAlign="center"
-          fontSize={18}>
-          {t(TranslationsKeys.WelcomeText)}
-        </Text>
-        <Text
-          fontFamily={fonts.roboto.bold}
-          mt={20}
-          textAlign="center"
-          fontSize={18}>
-          {sample1}
-        </Text>
-      </Div>
+      <SearchBar
+        onDebouncedChange={text => {
+          setShowSearch(text);
+          setPage(0);
+        }}
+        mb={12}
+        mx={20}
+        placeholder={t(TranslationsKeys.SearchPlaceholder)}
+      />
+
+      <FlatList
+        contentContainerStyle={flatListStyle}
+        data={series}
+        onEndReachedThreshold={0.5}
+        onEndReached={() => setPage(prev => prev + 1)}
+        numColumns={2}
+        maxToRenderPerBatch={6}
+        removeClippedSubviews
+        getItemLayout={getItemLayout}
+        keyExtractor={item => item.id.toString()}
+        ItemSeparatorComponent={() => <Div h={12} />}
+        renderItem={renderItem}
+      />
     </Div>
   );
 };
