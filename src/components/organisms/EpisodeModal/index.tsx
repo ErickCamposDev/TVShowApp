@@ -5,12 +5,14 @@ import { EpisodeInfo } from '~/components/atoms/EpisodeInfo';
 import { Episode } from '~/services/TVMazeApi/types/Serie';
 import { PLACEHOlDER_POSTER } from '~/shared/constants';
 import fonts from '~/shared/theme/fonts';
+import { HtmlText } from '@e-mine/react-native-html-text';
 import { addAlpha } from '~/utils';
+import { colors } from '~/shared/theme/themes';
 
 interface EpisodeModalProps {
   visible: boolean;
   onClosePress: () => void;
-  episode: Episode;
+  episode?: Episode;
 }
 export const EpisodeModal: FC<EpisodeModalProps> = ({
   visible,
@@ -18,7 +20,7 @@ export const EpisodeModal: FC<EpisodeModalProps> = ({
   episode,
 }) => {
   return (
-    <Modal transparent visible={visible}>
+    <Modal onDismiss={onClosePress} transparent visible={visible}>
       <Div
         flex={1}
         bg={addAlpha('#000000', 0.5)}
@@ -34,9 +36,7 @@ export const EpisodeModal: FC<EpisodeModalProps> = ({
           />
           <Image
             source={{
-              uri:
-                'https://classic.exame.com/wp-content/uploads/2020/02/how-i-met-your-mother.jpg?quality=70&strip=info&w=1024' ||
-                PLACEHOlDER_POSTER,
+              uri: episode?.image?.medium || PLACEHOlDER_POSTER,
             }}
             w={'100%'}
             h={200}
@@ -59,9 +59,9 @@ export const EpisodeModal: FC<EpisodeModalProps> = ({
           </Div>
           <Div bg="gray100" p={20} flex={1}>
             <EpisodeInfo
-              episodeName="Testand Nome"
-              episodeNumber={2}
-              season={1}
+              episodeName={episode?.name}
+              episodeNumber={episode?.number}
+              season={episode?.season}
             />
             <Text
               fontSize={16}
@@ -71,9 +71,9 @@ export const EpisodeModal: FC<EpisodeModalProps> = ({
               fontFamily={fonts.urbanist.bold}>
               Sumary
             </Text>
-            <Text color="gray900" fontFamily={fonts.urbanist.medium}>
+            <HtmlText style={{ color: colors.strongGray }}>
               {episode?.summary || ''}
-            </Text>
+            </HtmlText>
           </Div>
         </Div>
       </Div>

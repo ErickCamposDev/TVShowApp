@@ -10,13 +10,13 @@ class Search extends TVMazeApi {
     super('/search');
   }
 
-  private search = <T>(endpoint: string, query: string) => {
+  private search = <T>(endpoint: string, query?: string) => {
     return this.get<T[], SearchByQueryRequest>(endpoint, {
       q: query,
     });
   };
 
-  getSeriesByName = (query: string) => {
+  getSeriesByName = (query?: string) => {
     return this.search<SearchByQueryResponse>('/shows', query);
   };
 

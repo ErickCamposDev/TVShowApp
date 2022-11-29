@@ -1,17 +1,23 @@
 /* eslint-disable no-sparse-arrays */
 /* eslint-disable react-native/no-inline-styles */
 import { t } from 'i18next';
-import React, { FC, useContext, useRef, useState } from 'react';
-import { Animated, ScrollView } from 'react-native';
+import React, { FC, useContext, useMemo, useRef, useState } from 'react';
+import { Animated, ScrollView, TouchableOpacity } from 'react-native';
 import { Div, Icon, Tag, Text, ThemeContext } from 'react-native-magnus';
 import { TranslationsKeys } from '~/assets/i18n';
-import { CustomCollapse } from '~/components/atoms/CustomCollapse';
-import { Serie } from '~/services/TVMazeApi/types/Serie';
+import { Episode, Serie } from '~/services/TVMazeApi/types/Serie';
 import { HtmlText } from '@e-mine/react-native-html-text';
 
 import fonts from '~/shared/theme/fonts';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { EpisodeModal } from '~/components/organisms/EpisodeModal';
+import { SessionCollapse } from '~/components/atoms/SessionCollapse';
+import { useAppDispatch, useAppSelector } from '~/redux/AppStore';
+import {
+  deleteFavoriteAction,
+  getIsSerieFavoriteThunk,
+  setSerieAsFavoriteThunk,
+} from '~/redux/actions/FavoriteActions';
 
 interface SerieDetailsCardProps {
   serie: Serie;
@@ -20,37 +26,70 @@ interface SerieDetailsCardProps {
 export const SerieDetailsCard: FC<SerieDetailsCardProps> = ({ serie }) => {
   const offset = useRef(new Animated.Value(0)).current;
   const { theme } = useContext(ThemeContext);
-  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedEpisode, setSelectedEpisode] = useState<Episode | undefined>();
+  const {
+    tvSerie: { selectedSerieSeasons },
+    favorite: { favorites },
+  } = useAppSelector(state => state);
+  const dispatcher = useAppDispatch();
+
+  const isFavorite = useMemo(
+    () => dispatcher(getIsSerieFavoriteThunk(serie.id)),
+    [favorites],
+  );
+
+  const handleFavorite = () => {
+    if (isFavorite) {
+      dispatcher(deleteFavoriteAction({ serieId: serie.id }));
+    } else {
+      dispatcher(setSerieAsFavoriteThunk(serie));
+    }
+  };
 
   const renderContent = () => {
     return (
       <Div mt={12} flex={1}>
         <EpisodeModal
+          episode={selectedEpisode}
           onClosePress={() => {
-            setModalVisible(false);
+            setSelectedEpisode(undefined);
           }}
-          visible={modalVisible}
+          visible={!!selectedEpisode}
         />
         <Div m={20}>
-          <Text fontSize={24} mb={20} fontFamily={fonts.urbanist.bold}>
-            {serie.name}
-          </Text>
-          {serie.schedule.days && serie.schedule.time && (
+          <Div
+            mb={20}
+            alignItems="center"
+            justifyContent="space-between"
+            flexDir="row">
+            <Text fontSize={24} fontFamily={fonts.urbanist.bold}>
+              {serie?.name}
+            </Text>
+            <TouchableOpacity onPress={handleFavorite}>
+              <Icon
+                fontSize={24}
+                color="red"
+                fontFamily="FontAwesome"
+                name={isFavorite ? 'heart' : 'heart-o'}
+              />
+            </TouchableOpacity>
+          </Div>
+          {serie?.schedule?.days && serie?.schedule?.time && (
             <Div>
               <Div flexDir="row" mb={20}>
                 <Icon name="clock" fontFamily="SimpleLineIcons" fontSize={20} />
                 <Text fontSize={14} fontFamily={fonts.urbanist.bold} ml={6}>
-                  {serie.schedule.days.join(' | ')} - {serie.schedule.time}{' '}
+                  {serie?.schedule?.days.join(' | ')} - {serie?.schedule?.time}{' '}
                 </Text>
               </Div>
             </Div>
           )}
           <HtmlText
             style={{ color: theme.name === 'light' ? '#1a202c' : '#FFFFFF' }}>
-            {serie.summary}
+            {serie?.summary}
           </HtmlText>
           <ScrollView showsHorizontalScrollIndicator={false} horizontal>
-            {serie.genres.map(item => (
+            {serie?.genres.map(item => (
               <Tag
                 my={20}
                 mr={20}
@@ -63,10 +102,17 @@ export const SerieDetailsCard: FC<SerieDetailsCardProps> = ({ serie }) => {
               </Tag>
             ))}
           </ScrollView>
-          <Text fontSize={24} mb={20} fontFamily={fonts.urbanist.bold}>{`${t(
-            TranslationsKeys.Episodes,
-          )}`}</Text>
-          <CustomCollapse onEpisodePress={() => setModalVisible(true)} />
+          <Text fontSize={24} mb={20} fontFamily={fonts.urbanist.bold}>
+            {t(TranslationsKeys.Episodes).toString()}
+          </Text>
+          {selectedSerieSeasons.map(season => (
+            <SessionCollapse
+              key={`season-${season?.season}`}
+              season={season?.season}
+              data={season?.episodes}
+              onEpisodePress={episode => setSelectedEpisode(episode)}
+            />
+          ))}
         </Div>
       </Div>
     );
@@ -74,7 +120,7 @@ export const SerieDetailsCard: FC<SerieDetailsCardProps> = ({ serie }) => {
 
   return (
     <Div flex={1}>
-      <AnimatedHeader image={serie.image.original} animatedValue={offset} />
+      <AnimatedHeader image={serie?.image?.medium} animatedValue={offset} />
       <ScrollView
         style={{ flexGrow: 1 }}
         contentContainerStyle={{

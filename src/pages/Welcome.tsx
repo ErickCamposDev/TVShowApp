@@ -1,8 +1,12 @@
 import React, { FC } from 'react';
+import { t } from 'i18next';
 import { ImageBackground, StyleSheet } from 'react-native';
 import { Button, Text } from 'react-native-magnus';
+import { TranslationsKeys } from '~/assets/i18n';
 import { WelcomeBackground } from '~/assets/images';
+import { SCREENS } from '~/interfaces';
 import fonts from '~/shared/theme/fonts';
+import { useAppNavigation } from '~/hooks';
 
 interface WelcomeProps {}
 
@@ -17,15 +21,26 @@ const styles = StyleSheet.create({
 });
 
 const Welcome: FC<WelcomeProps> = ({}) => {
+  const navigation = useAppNavigation();
+
   return (
     <ImageBackground
       style={styles.backgroundImage}
       blurRadius={8}
       source={WelcomeBackground}>
-      <Text fontSize={40} textAlign="center" fontFamily={fonts.urbanist.bold}>
-        Welcome to the TV show App
+      <Text
+        color="gray100"
+        fontSize={40}
+        textAlign="center"
+        fontFamily={fonts.urbanist.bold}>
+        {`${t(TranslationsKeys.Welcome)}`}
       </Text>
-      <Button bg="red" w={'70%'} alignSelf="center" mt={40}>
+      <Button
+        onPress={() => navigation.navigate(SCREENS.HOME_TAB)}
+        bg="red"
+        w={'70%'}
+        alignSelf="center"
+        mt={40}>
         Get Started
       </Button>
     </ImageBackground>

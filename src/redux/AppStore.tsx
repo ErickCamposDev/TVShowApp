@@ -1,6 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch, useSelector } from 'react-redux';
 import { createLogger } from 'redux-logger';
+import { favoriteReducer } from './reducers/FavoriteReducer';
+import { loadingReducer } from './reducers/LoadingReducer';
 import { tvSerieReducer } from './reducers/TVSerieReducer';
 
 const logger = createLogger({
@@ -20,6 +22,8 @@ const logger = createLogger({
 export const store = configureStore({
   reducer: {
     tvSerie: tvSerieReducer,
+    loading: loadingReducer,
+    favorite: favoriteReducer,
   },
   middleware: defaultMiddleware =>
     defaultMiddleware({ serializableCheck: false }).concat(logger),

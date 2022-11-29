@@ -1,3 +1,5 @@
+import Serie from '../providers/Serie';
+
 interface Schedule {
   time: string;
   days: string[];
@@ -82,7 +84,11 @@ export interface SearchByQueryResponse {
 }
 
 export interface SearchByQueryRequest {
-  q: string;
+  q?: string;
+}
+
+export interface SerieRequest {
+  page?: number;
 }
 
 export interface Person {
@@ -122,4 +128,8 @@ export interface Episode {
   image: Image;
   summary: string;
   _links: EpisodeLinks;
+}
+export interface Season {
+  season: number;
+  episodes: Episode[];
 }

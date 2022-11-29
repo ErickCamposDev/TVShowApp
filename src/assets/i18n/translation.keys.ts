@@ -16,8 +16,10 @@ export enum TranslationKeyEnum {
   ErrorUnexpected = 'error-unexpected',
   SearchPlaceholder = 'search-placeholder',
   Episodes = 'episodes',
-  Favorites = 'Favorites',
-  Welcome = 'Welcome',
+  Favorites = 'favorites',
+  NoFavorites = 'no-favorites',
+  Welcome = 'welcome',
+  Season = 'season',
 }
 
 export type TranslationKey = { [K in TranslationKeyEnum]: string };

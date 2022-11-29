@@ -11,7 +11,7 @@ export const enum SCREENS {
 }
 
 export type RootStackParamList = {
-  [SCREENS.HOME_TAB]: { someParam: string };
+  [SCREENS.HOME_TAB]: undefined;
   [SCREENS.FAVORITES]: undefined;
   [SCREENS.SERIE_DETAILS]: { serie: Serie };
   [SCREENS.HOME]: undefined;

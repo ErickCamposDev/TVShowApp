@@ -5,6 +5,7 @@ import { store } from '~/redux/AppStore';
 
 import { ThemeProvider } from 'react-native-magnus';
 import { themes } from '~/shared/theme/themes';
+import { LoadingModal } from '~/components';
 
 interface Props {
   children: React.ReactNode;
@@ -13,7 +14,10 @@ interface Props {
 export const Provider: React.FC<Props> = ({ children }: Props) => {
   return (
     <ReduxProvider store={store}>
-      <ThemeProvider theme={themes.dark}>{children}</ThemeProvider>
+      <ThemeProvider theme={themes.dark}>
+        {children}
+        <LoadingModal />
+      </ThemeProvider>
     </ReduxProvider>
   );
 };

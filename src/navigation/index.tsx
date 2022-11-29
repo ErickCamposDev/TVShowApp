@@ -2,9 +2,8 @@ import React, { useContext, useEffect } from 'react';
 import {
   CardStyleInterpolators,
   createStackNavigator,
-  StackNavigationProp,
 } from '@react-navigation/stack';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { isReadyRef, navigationRef } from 'react-navigation-helpers';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 // Pages
@@ -17,9 +16,6 @@ import { Welcome } from '~/pages/Welcome';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator<RootStackParamList>();
-
-export const useAppNavigation: () => StackNavigationProp<RootStackParamList> =
-  useNavigation;
 
 const Navigation = () => {
   const { theme } = useContext(ThemeContext);
@@ -56,13 +52,13 @@ const Navigation = () => {
     return (
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name={SCREENS.HOME} component={Home} />
-        <Stack.Screen
+        {/* <Stack.Screen
           name={SCREENS.SERIE_DETAILS}
           options={{
             cardStyleInterpolator: CardStyleInterpolators.forFadeFromCenter,
           }}
           component={SerieDetails}
-        />
+        /> */}
       </Stack.Navigator>
     );
   };
@@ -99,6 +95,13 @@ const Navigation = () => {
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name={SCREENS.WELCOME} component={Welcome} />
         <Stack.Screen name={SCREENS.HOME_TAB} component={HomeTabNavigation} />
+        <Stack.Screen
+          name={SCREENS.SERIE_DETAILS}
+          options={{
+            cardStyleInterpolator: CardStyleInterpolators.forFadeFromCenter,
+          }}
+          component={SerieDetails}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

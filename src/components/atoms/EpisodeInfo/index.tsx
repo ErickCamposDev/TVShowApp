@@ -3,9 +3,9 @@ import { Div, Text } from 'react-native-magnus';
 import fonts from '~/shared/theme/fonts';
 
 interface EpisodeInfoProps {
-  season: number;
-  episodeNumber: number;
-  episodeName: string;
+  season?: number;
+  episodeNumber?: number;
+  episodeName?: string;
 }
 
 const EpisodeInfo: FC<EpisodeInfoProps> = ({
