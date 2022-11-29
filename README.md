@@ -27,7 +27,6 @@ Developed application to test knowledge in React Native in a job selection. A gr
 
 # Screens
 
-![welcome](https://user-images.githubusercontent.com/34358287/87234221-4f8ecc00-c3a5-11ea-977b-cf6133b46273.png)
-![Home](https://user-images.githubusercontent.com/34358287/87234060-b7441780-c3a3-11ea-93a0-cd726c42e0bd.png)
-![Settings](https://user-images.githubusercontent.com/34358287/87234060-b7441780-c3a3-11ea-93a0-cd726c42e0bd.png)
-![Favorites](https://user-images.githubusercontent.com/34358287/87234060-b7441780-c3a3-11ea-93a0-cd726c42e0bd.png)
+![welcome](https://user-images.githubusercontent.com/34358287/204424126-9856d7c9-b66f-4a01-a1f3-e55cb04debea.jpeg)
+![details](https://user-images.githubusercontent.com/34358287/204424133-0be9810b-3e85-47ec-a869-3642433ede32.jpeg)
+![home](https://user-images.githubusercontent.com/34358287/204424139-7bb8da40-5178-4639-99e1-49fa95163720.jpeg)
